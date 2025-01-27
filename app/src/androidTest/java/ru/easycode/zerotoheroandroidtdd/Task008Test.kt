@@ -3,6 +3,7 @@ package ru.easycode.zerotoheroandroidtdd
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.PositionAssertions.isCompletelyBelow
@@ -34,7 +35,7 @@ class Task008Test {
                 isAssignableFrom(TextView::class.java),
                 withId(R.id.titleTextView),
                 withText("Hello World!"),
-                withParent(isAssignableFrom(LinearLayout::class.java)),
+                withParent(isAssignableFrom(ConstraintLayout::class.java)),
                 withParent(withId(R.id.rootLayout))
             )
         ).check(matches(isDisplayed()))
@@ -44,7 +45,7 @@ class Task008Test {
                 withId(R.id.hideButton),
                 withText("hide"),
                 isAssignableFrom(Button::class.java),
-                withParent(isAssignableFrom(LinearLayout::class.java)),
+                withParent(isAssignableFrom(ConstraintLayout::class.java)),
                 withParent(withId(R.id.rootLayout))
             )
         ).check(isCompletelyBelow(withId(R.id.titleTextView)))
