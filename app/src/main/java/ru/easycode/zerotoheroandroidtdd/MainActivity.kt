@@ -5,9 +5,10 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
+import java.io.Serializable
 
 class MainActivity : AppCompatActivity() {
-    private var deleted = false
+    private lateinit var state: State
     private lateinit var linearLayout: LinearLayout
     private lateinit var textView: TextView
 
@@ -19,18 +20,33 @@ class MainActivity : AppCompatActivity() {
         textView = findViewById(R.id.titleTextView)
 
         button.setOnClickListener {
-            linearLayout.removeView(textView)
-            deleted = true
+            state = State.Deleted
+            state.apply(linearLayout, textView)
         }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putBoolean("deleted", deleted)
+        outState.putSerializable("state", state)
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        if(savedInstanceState.getBoolean("deleted")) linearLayout.removeView(textView)
+        state = savedInstanceState.getSerializable("state") as State
+        state.apply(linearLayout, textView)
+    }
+}
+
+interface State: Serializable{
+    fun apply(linearLayout: LinearLayout, textView: TextView)
+
+    object Initial : State{
+        override fun apply(linearLayout: LinearLayout, textView: TextView) = Unit
+    }
+
+    object Deleted : State{
+        override fun apply(linearLayout: LinearLayout, textView: TextView) {
+            linearLayout.removeView(textView)
+        }
     }
 }
