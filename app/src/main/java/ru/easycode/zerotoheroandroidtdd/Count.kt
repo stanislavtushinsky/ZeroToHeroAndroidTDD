@@ -1,9 +1,16 @@
 package ru.easycode.zerotoheroandroidtdd
 
-abstract class Count {
+interface Count {
+    fun increment(number: String): String
 
-    fun increment(number: Int){}
+    class Base(private val step: Int) : Count {
 
+        init {
+            if (step < 1) throw IllegalStateException("step should be positive, but was -2")
+        }
+
+        override fun increment(number: String): String {
+            return (number.trim().toInt() + step).toString()
+        }
+    }
 }
-
-data class Base(val step : Int): Count()
