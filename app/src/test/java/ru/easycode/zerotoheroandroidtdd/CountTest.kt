@@ -24,7 +24,7 @@ class CountTest {
 
     @Test
     fun test_increment_step_3() {
-        val count: Count = Count.Base(step = 3, max = 7)
+        val count: Count = Count.Base(step = 3, max = 6)
 
         var actual: UiState = count.increment(number = "0")
         var expected: UiState = UiState.Base(text = "3")
