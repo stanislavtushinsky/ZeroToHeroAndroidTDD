@@ -45,7 +45,7 @@ class MainViewModelTest {
 
 private interface FakeLiveDataWrapper : LiveDataWrapper {
 
-    fun checkUpdateCalls(expected: List<UiState>)
+    override fun checkUpdateCalls(expected: List<UiState>)
 
     class Base : FakeLiveDataWrapper {
 
@@ -67,7 +67,7 @@ private interface FakeLiveDataWrapper : LiveDataWrapper {
 
 private interface FakeRepository : Repository {
 
-    fun checkLoadCalledTimes(times: Int)
+    override fun checkLoadCalledTimes(times: Int)
 
     class Base : FakeRepository {
 
